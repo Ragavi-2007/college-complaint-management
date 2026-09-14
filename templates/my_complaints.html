@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}My Complaints{% endblock %}
+{% block content %}
+<h2 class="mb-4">My Complaints</h2>
+{% if complaints %}
+{% for c in complaints %}
+<div class="card complaint-card mb-3">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h5>Complaint #{{ c['id'] }} - {{ c['category'] }}</h5>
+            <span class="badge status-{{ c['status']|lower }}">{{ c['status'] }}</span>
+        </div>
+        <p><strong>Location:</strong> {{ c['location'] }}</p>
+        <p><strong>Priority:</strong> {{ c['priority'] }}</p>
+        <p>{{ c['description'] }}</p>
+        {% if c['photo'] %}
+            <a href="{{ url_for('uploaded_file', filename=c['photo']) }}" target="_blank" class="btn btn-sm btn-outline-primary">View Photo</a>
+        {% endif %}
+        {% if c['assigned_to'] %}
+            <p class="mt-3 mb-1"><strong>Assigned To:</strong> {{ c['assigned_to'] }}</p>
+        {% endif %}
+        {% if c['admin_remarks'] %}
+            <p class="mb-1"><strong>Admin Remarks:</strong> {{ c['admin_remarks'] }}</p>
+        {% endif %}
+        <small class="text-muted">Submitted: {{ c['created_at'] }}</small>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<div class="alert alert-info">You have not submitted any complaints.</div>
+{% endif %}
+{% endblock %}

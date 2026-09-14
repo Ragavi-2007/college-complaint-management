@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Staff Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div><h2>{{ staff['name'] }}</h2><p class="text-muted mb-0">{{ staff['department'] }}</p></div>
+    <form method="POST" action="{{ url_for('toggle_staff_leave') }}">
+        {% if staff['on_leave'] %}
+            <button class="btn btn-warning">Currently On Leave — Set Available</button>
+        {% else %}
+            <button class="btn btn-outline-warning">Mark Me On Leave</button>
+        {% endif %}
+    </form>
+</div>
+
+{% if staff['on_leave'] %}
+<div class="alert alert-warning">You are marked <strong>On Leave</strong>. New complaints will be assigned to another available staff member in {{ staff['department'] }}.</div>
+{% endif %}
+
+<div class="row g-4">
+<div class="col-lg-5">
+<div class="card"><div class="card-body">
+<h4>Notifications</h4>
+{% for n in notifications %}
+<a href="{{ url_for('read_notification', notification_id=n['id']) }}" class="d-block text-decoration-none border rounded p-3 mb-2 {% if not n['is_read'] %}bg-light{% endif %}">
+<strong>{% if not n['is_read'] %}🔔 New Assignment{% else %}Assignment{% endif %}</strong><br>
+<span class="text-dark">{{ n['message'] }}</span><br>
+<small class="text-muted">{{ n['created_at'] }}</small>
+</a>
+{% else %}<p class="text-muted">No notifications yet.</p>{% endfor %}
+</div></div>
+</div>
+<div class="col-lg-7">
+<div class="card"><div class="card-body">
+<h4>My Assigned Complaints</h4>
+<div class="table-responsive"><table class="table align-middle">
+<thead><tr><th>ID</th><th>Issue</th><th>Priority</th><th>Status</th><th></th></tr></thead>
+<tbody>
+{% for c in complaints %}
+<tr><td>#{{ c['id'] }}</td><td>{{ c['category'] }}<br><small>{{ c['location'] }}</small></td><td>{{ c['priority'] }}</td><td>{{ c['status'] }}</td><td><a class="btn btn-sm btn-primary" href="{{ url_for('staff_complaint', complaint_id=c['id']) }}">Open</a></td></tr>
+{% else %}<tr><td colspan="5" class="text-center text-muted">No complaints assigned to you.</td></tr>{% endfor %}
+</tbody></table></div>
+</div></div>
+</div>
+</div>
+{% endblock %}

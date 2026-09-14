@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Staff Login{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+<div class="col-md-6 col-lg-5">
+<div class="card">
+<div class="card-body p-4">
+<h2 class="mb-3">Staff Login</h2>
+<p class="text-muted">Login to view complaints assigned to your department.</p>
+<form method="POST">
+<div class="mb-3"><label class="form-label">Username</label><input name="username" class="form-control" required></div>
+<div class="mb-3"><label class="form-label">Password</label><input type="password" name="password" class="form-control" required></div>
+<button class="btn btn-primary w-100">Login</button>
+</form>
+<div class="alert alert-secondary mt-3 small mb-0"><strong>Demo:</strong> electrical1 / staff123</div>
+</div></div></div></div>
+{% endblock %}

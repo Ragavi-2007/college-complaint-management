@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div><h2>Admin Dashboard</h2><p class="text-muted">Manage student complaints</p></div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3"><div class="stat-card"><h3>{{ total }}</h3><p>Total Complaints</p></div></div>
+    <div class="col-md-3"><div class="stat-card"><h3>{{ pending }}</h3><p>Pending</p></div></div>
+    <div class="col-md-3"><div class="stat-card"><h3>{{ assigned }}</h3><p>Assigned</p></div></div>
+    <div class="col-md-3"><div class="stat-card"><h3>{{ resolved }}</h3><p>Resolved</p></div></div>
+</div>
+
+<div class="card">
+<div class="card-body">
+<h4>All Complaints</h4>
+<div class="table-responsive">
+<table class="table table-hover align-middle">
+<thead><tr><th>ID</th><th>Student</th><th>Category</th><th>Priority</th><th>Status</th><th>Action</th></tr></thead>
+<tbody>
+{% for c in complaints %}
+<tr>
+    <td>#{{ c['id'] }}</td>
+    <td>
+        {% if c['anonymous'] %}
+            Anonymous
+        {% else %}
+            {{ c['student_name'] or 'Unknown' }}<br>
+            <small class="text-muted">{{ c['register_number'] or '' }}</small>
+        {% endif %}
+    </td>
+    <td>{{ c['category'] }}</td>
+    <td><span class="badge priority-{{ c['priority']|lower }}">{{ c['priority'] }}</span></td>
+    <td><span class="badge status-{{ c['status']|lower }}">{{ c['status'] }}</span></td>
+    <td><a href="{{ url_for('complaint_details', complaint_id=c['id']) }}" class="btn btn-sm btn-primary">View / Manage</a></td>
+</tr>
+{% else %}
+<tr><td colspan="6" class="text-center text-muted">No complaints available.</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+{% endblock %}

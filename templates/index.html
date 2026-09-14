@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Home - College Complaint App{% endblock %}
+{% block content %}
+<div class="hero text-center p-5 rounded-4 shadow-sm">
+    <h1 class="display-5 fw-bold">College Complaint<br>Management App</h1>
+    <p class="lead mt-3">Report campus issues digitally and track their resolution.</p>
+    <div class="mt-4">
+        <a href="{{ url_for('student_login') }}" class="btn btn-primary btn-lg me-2">Student Login</a>
+        <a href="{{ url_for('admin_login') }}" class="btn btn-outline-primary btn-lg">Admin Login</a>
+    </div>
+</div>
+
+<div class="row g-4 mt-3">
+    <div class="col-md-6">
+        <div class="card feature-card h-100">
+            <div class="card-body">
+                <h3>👨‍🎓 Student</h3>
+                <ul>
+                    <li>Submit Complaint</li>
+                    <li>Upload Photo</li>
+                    <li>Anonymous Option</li>
+                    <li>Select Priority</li>
+                    <li>Track Status</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card feature-card h-100">
+            <div class="card-body">
+                <h3>👨‍💼 Admin</h3>
+                <ul>
+                    <li>View Complaints</li>
+                    <li>Assign Complaint</li>
+                    <li>Update Status</li>
+                    <li>Add Remarks</li>
+                    <li>View Records</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
