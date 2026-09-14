@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Staff Complaint #{{ complaint['id'] }}{% endblock %}
+{% block content %}
+<div class="row g-4">
+<div class="col-lg-7"><div class="card"><div class="card-body">
+<h2>Complaint #{{ complaint['id'] }}</h2><hr>
+<p><strong>Category:</strong> {{ complaint['category'] }}</p>
+<p><strong>Department:</strong> {{ complaint['assigned_department'] }}</p>
+<p><strong>Location:</strong> {{ complaint['location'] }}</p>
+<p><strong>Priority:</strong> {{ complaint['priority'] }}</p>
+<p><strong>Description:</strong></p><div class="description-box">{{ complaint['description'] }}</div>
+{% if complaint['photo'] %}<p class="mt-3"><strong>Photo Proof:</strong></p><img src="{{ url_for('uploaded_file', filename=complaint['photo']) }}" class="img-fluid rounded complaint-photo" alt="Complaint photo">{% endif %}
+</div></div></div>
+<div class="col-lg-5"><div class="card"><div class="card-body">
+<h4>Update Complaint</h4>
+<form method="POST">
+<div class="mb-3"><label class="form-label">Status</label><select name="status" class="form-select"><option {% if complaint['status'] == 'Assigned' %}selected{% endif %}>Assigned</option><option {% if complaint['status'] == 'Resolved' %}selected{% endif %}>Resolved</option></select></div>
+<div class="mb-3"><label class="form-label">Remarks</label><textarea name="admin_remarks" class="form-control" rows="5">{{ complaint['admin_remarks'] or '' }}</textarea></div>
+<button class="btn btn-success w-100">Save Update</button>
+</form></div></div></div>
+</div>
+{% endblock %}

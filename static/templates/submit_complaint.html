@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Submit Complaint{% endblock %}
+{% block content %}
+<div class="form-card wide">
+    <h2 class="mb-4">Submit Complaint</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Category</label>
+                <select name="category" class="form-select" required>
+                    <option value="">Select Category</option>
+                    <option>Classroom</option><option>Hostel</option><option>Laboratory</option>
+                    <option>Library</option><option>Canteen</option><option>Sanitation</option>
+                    <option>Electrical</option><option>Plumbing</option><option>Maintenance</option>
+                    <option>Wi-Fi/Internet</option><option>Transport</option><option>Other</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Location</label>
+                <input name="location" class="form-control" placeholder="Example: Block A, Room 204" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Complaint Description</label>
+            <textarea name="description" class="form-control" rows="5" placeholder="Describe the issue clearly..." required></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Priority</label>
+                <select name="priority" class="form-select" required>
+                    <option>Low</option><option selected>Medium</option><option>High</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Upload Photo (optional, max 5 MB)</label>
+                <input type="file" name="photo" class="form-control" accept=".jpg,.jpeg,.png,.gif,.webp">
+            </div>
+        </div>
+
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" name="anonymous" id="anonymous">
+            <label class="form-check-label" for="anonymous">
+                Submit this complaint anonymously
+            </label>
+        </div>
+
+        <button class="btn btn-primary">Submit Complaint</button>
+        <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

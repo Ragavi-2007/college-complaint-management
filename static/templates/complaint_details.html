@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Complaint #{{ complaint['id'] }}{% endblock %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h2>Complaint #{{ complaint['id'] }}</h2>
+                    <span class="badge status-{{ complaint['status']|lower }}">{{ complaint['status'] }}</span>
+                </div>
+                <hr>
+                <p><strong>Category:</strong> {{ complaint['category'] }}</p>
+                <p><strong>Location:</strong> {{ complaint['location'] }}</p>
+                <p><strong>Priority:</strong> {{ complaint['priority'] }}</p>
+                <p><strong>Assigned Department:</strong> {{ complaint['assigned_department'] or 'Not assigned' }}</p>
+                <p><strong>Assigned Staff:</strong> {{ complaint['assigned_to'] or 'Not assigned' }}</p>
+                <p><strong>Student:</strong>
+                    {% if complaint['anonymous'] %}Anonymous{% else %}{{ complaint['student_name'] }} ({{ complaint['register_number'] }}){% endif %}
+                </p>
+                <p><strong>Description:</strong></p>
+                <div class="description-box">{{ complaint['description'] }}</div>
+                {% if complaint['photo'] %}
+                    <p class="mt-3"><strong>Photo Proof:</strong></p>
+                    <img src="{{ url_for('uploaded_file', filename=complaint['photo']) }}" class="img-fluid rounded complaint-photo" alt="Complaint photo">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <h4>Manage Complaint</h4>
+                <p class="small text-muted">Suggested department for this category: <strong>{{ suggested_department }}</strong></p>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Assign To Department</label>
+                        <select name="assigned_department" class="form-select" required>
+                            {% for department in departments %}
+                                <option value="{{ department }}" {% if complaint['assigned_department'] == department or (not complaint['assigned_department'] and suggested_department == department) %}selected{% endif %}>{{ department }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <select name="status" class="form-select">
+                            <option {% if complaint['status'] == 'Pending' %}selected{% endif %}>Pending</option>
+                            <option {% if complaint['status'] == 'Assigned' %}selected{% endif %}>Assigned</option>
+                            <option {% if complaint['status'] == 'Resolved' %}selected{% endif %}>Resolved</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Admin Remarks</label>
+                        <textarea name="admin_remarks" class="form-control" rows="5" placeholder="Enter update or resolution details...">{{ complaint['admin_remarks'] or '' }}</textarea>
+                    </div>
+                    <button class="btn btn-primary w-100">Save Update & Assign</button>
+                </form>
+            </div>
+        </div>
+        <div class="alert alert-info mt-3 small">
+            When status is <strong>Assigned</strong>, the system automatically selects an available staff member from the chosen department with the lowest active workload and sends an in-app notification.
+        </div>
+    </div>
+</div>
+{% endblock %}
