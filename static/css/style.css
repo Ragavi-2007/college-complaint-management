@@ -1,23 +1,54 @@
+
+/* Modern College Complaint App */
+
 body {
-    background: #f5f7fb;
+    background: #f1f5fb;
     min-height: 100vh;
+    color: #1e293b;
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
+/* Homepage hero */
 .hero {
-    background: white;
-    border: 1px solid #e7eaf0;
+    background: linear-gradient(135deg, #0d6efd, #1746a2);
+    color: white;
+    border: none;
+    border-radius: 24px !important;
+    padding: 60px 25px !important;
+    box-shadow: 0 12px 30px rgba(13, 110, 253, 0.18);
 }
 
-.feature-card, .card, .form-card {
-    border: 0;
-    border-radius: 16px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+.hero .badge {
+    border-radius: 30px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+.hero .lead {
+    color: #e5efff;
+}
+
+/* Cards */
+.feature-card,
+.card,
+.form-card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 6px 22px rgba(30, 60, 100, 0.07);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(30, 60, 100, 0.12);
 }
 
 .feature-card li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    color: #475569;
 }
 
+/* Forms */
 .form-card {
     background: white;
     max-width: 560px;
@@ -29,28 +60,33 @@ body {
     max-width: 850px;
 }
 
+/* Dashboard statistics */
 .stat-card {
     background: white;
-    padding: 20px;
-    border-radius: 16px;
+    padding: 22px;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    box-shadow: 0 6px 22px rgba(30, 60, 100, 0.07);
 }
 
 .stat-card h3 {
     margin: 0;
     font-size: 30px;
+    font-weight: 700;
+    color: #0d6efd;
 }
 
 .stat-card p {
     margin: 5px 0 0;
-    color: #6c757d;
+    color: #64748b;
 }
 
+/* Complaint cards */
 .complaint-card {
     border-left: 5px solid #0d6efd;
 }
 
+/* Priority colors */
 .priority-low {
     background: #198754;
 }
@@ -63,8 +99,9 @@ body {
     background: #dc3545;
 }
 
+/* Status colors */
 .status-pending {
-    background: #6c757d;
+    background: #64748b;
 }
 
 .status-assigned {
@@ -75,14 +112,40 @@ body {
     background: #198754;
 }
 
+/* Complaint description */
 .description-box {
-    background: #f8f9fa;
-    border-radius: 10px;
+    background: #f1f5f9;
+    border-radius: 12px;
     padding: 15px;
     white-space: pre-wrap;
 }
 
+/* Complaint photos */
 .complaint-photo {
     max-height: 400px;
     object-fit: contain;
 }
+
+/* Buttons */
+.btn {
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.15);
+}
+
+/* Inputs */
+.form-control,
+.form-select {
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.12);
+}
+
